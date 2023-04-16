@@ -6,7 +6,8 @@ import readline from 'readline';
 import os from 'os';
 
 import { upDir, cdDir } from './cdDir.js';
-import { showInfoDir } from './showInfoDir.js'
+import { showInfoDir } from './showInfoDir.js';
+import { readFile } from './readFile.js'
 
 let DIR = os.homedir();
 
@@ -34,13 +35,14 @@ const Enter = () => {
       DIR = cdDir(DIR, file);
     }
     if (data.startsWith('ls')) {
-      console.log(DIR)
+      // console.log(DIR)
       showInfoDir(DIR);
-      // return DIR;
-      
+      // return DIR; 
     }
     if (data.startsWith('cat')) {
-      console.log(data);
+      const file = data.split(' ').slice(1).join('');
+      console.log(DIR, file)
+      readFile(DIR, file)
     }
     if (data.startsWith('.exit')) {
       console.log(`Thank you for using File Manager, ${username}, goodbye!`);

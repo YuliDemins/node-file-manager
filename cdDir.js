@@ -1,5 +1,5 @@
 import os from 'os';
-import path, { dirname, sep } from 'path';
+import path, { sep } from 'path';
 import fs from 'fs';
 
 const makeArrDir = (filePath) => {
@@ -47,7 +47,6 @@ export const downDir = (dir, file) => {
   if(fs.existsSync(path.join(dir, file))) {
       DIR = path.join(dir, file);
       console.log(`You are currently in ${DIR}`);
-      // arr = makeArrDir(DIR);
       return DIR;
   }
   else console.log('FS operation is failed')
