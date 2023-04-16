@@ -5,7 +5,8 @@ import process from 'process';
 import readline from 'readline';
 import os from 'os';
 
-import { upDir, cdDir } from './upDir.js';
+import { upDir, cdDir } from './cdDir.js';
+import { showInfoDir } from './showInfoDir.js'
 
 let DIR = os.homedir();
 
@@ -26,11 +27,16 @@ const rl = readline.createInterface({
 const Enter = () => {
   rl.on('line', (data) => {
     if (data.startsWith('up')) {
-      return DIR = upDir(DIR);
+      DIR = upDir(DIR);
     }
     if (data.startsWith('cd')) {
       const file = data.split(' ').slice(1).join('');
-      return DIR = cdDir(DIR, file);
+      DIR = cdDir(DIR, file);
+    }
+    if (data.startsWith('ls')) {
+      console.log(DIR)
+      showInfoDir(DIR);
+      // return DIR;
       
     }
     if (data.startsWith('cat')) {
@@ -50,19 +56,15 @@ const Enter = () => {
 Enter();
 
 const rootPath = 'C:/Users/Julia/';
-const folderPath = 'C:/Users/Julia/Desktop/Projects';
+const folderPath = 'C:/Users/Julia/Desktop';
 const dir = 'Nodejs'; // замените на ваше имя файла
 
 
-// const file = '..'
-// console.log(path.resolve(__dirname, '..'))
+// const arrDisk = [ 'C:' , 'D:']
+// const file = 'C:'
+// console.log(file)
+// if (arrDisk.includes(file)){
+//   // process.chdir(file[2]);
+//   console.log(`You are currently in ${file}`);
+// }
 
-
-
-// fs.access(folderPath, (err) => {
-//   if (err) {
-//     console.log('Папка не существует');
-//   } else {
-//     console.log('Папка существует');
-//   }
-// });
