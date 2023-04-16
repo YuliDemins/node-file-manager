@@ -49,7 +49,10 @@ export const downDir = (dir, file) => {
       console.log(`You are currently in ${DIR}`);
       return DIR;
   }
-  else console.log('FS operation is failed')
+  else {
+    console.log('FS operation is failed')
+    return DIR;
+  }
 };
 
 

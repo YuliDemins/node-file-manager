@@ -8,6 +8,7 @@ import os from 'os';
 import { upDir, cdDir } from './cdDir.js';
 import { showInfoDir } from './showInfoDir.js';
 import { readFile } from './readFile.js'
+import { createFile } from './createFile.js'
 
 let DIR = os.homedir();
 
@@ -43,6 +44,10 @@ const Enter = () => {
       const file = data.split(' ').slice(1).join('');
       console.log(DIR, file)
       readFile(DIR, file)
+    }
+    if (data.startsWith('add')) {
+      const file = data.split(' ').slice(1).join('');
+      createFile(DIR, file);
     }
     if (data.startsWith('.exit')) {
       console.log(`Thank you for using File Manager, ${username}, goodbye!`);
