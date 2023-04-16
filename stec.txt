@@ -1,0 +1,12 @@
+Frontend stack:
+- Html(BEM)
+- Scss
+- React/Next.js
+- TypeScript
+- MobX, Redux, Redux-toolkit
+- Gulp, Webpack
+- Git (GitHub, GitLab)
+- Tailwind
+- Vercel
+- React-hook-form
+

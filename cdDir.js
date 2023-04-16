@@ -34,17 +34,17 @@ export const upDir = (dir) => {
     DIR = path.parse(dir).root;
     console.log(`You are currently in ${DIR}`);
     return DIR;
-  } else {
+  }
+  else {
     DIR = makeStringDirUp(arr);
     console.log(`You are currently in ${DIR}`);
     arr = arr.slice(0, -1);
-    console.log(arr);
     return DIR;
   }
 };
 
 export const downDir = (dir, file) => {
-  if(fs.existsSync(path.join(dir, file))) {
+  if (fs.existsSync(path.join(dir, file))) {
       DIR = path.join(dir, file);
       console.log(`You are currently in ${DIR}`);
       return DIR;

@@ -7,8 +7,10 @@ import os from 'os';
 
 import { upDir, cdDir } from './cdDir.js';
 import { showInfoDir } from './showInfoDir.js';
-import { readFile } from './readFile.js'
-import { createFile } from './createFile.js'
+import { readFile } from './readFile.js';
+import { createFile } from './createFile.js';
+import { renameFile } from './renameFile.js';
+import { deleteFile } from './deleteFile.js';
 
 let DIR = os.homedir();
 
@@ -36,18 +38,24 @@ const Enter = () => {
       DIR = cdDir(DIR, file);
     }
     if (data.startsWith('ls')) {
-      // console.log(DIR)
       showInfoDir(DIR);
-      // return DIR; 
     }
     if (data.startsWith('cat')) {
       const file = data.split(' ').slice(1).join('');
-      console.log(DIR, file)
       readFile(DIR, file)
     }
     if (data.startsWith('add')) {
       const file = data.split(' ').slice(1).join('');
       createFile(DIR, file);
+    }
+    if (data.startsWith('rn')) {
+      const filePath = data.split(' ').slice(1, 2).join('');
+      const file = data.split(' ').slice(2).join('');
+      DIR = renameFile(DIR, filePath, file);
+    }
+    if (data.startsWith('rm')) {
+      const file = data.split(' ').slice(1).join('');
+      deleteFile(DIR, file);
     }
     if (data.startsWith('.exit')) {
       console.log(`Thank you for using File Manager, ${username}, goodbye!`);
@@ -64,8 +72,7 @@ Enter();
 
 const rootPath = 'C:/Users/Julia/';
 const folderPath = 'C:/Users/Julia/Desktop';
-const dir = 'Nodejs'; // замените на ваше имя файла
-
+const dir = 'Nodejs';
 
 // const arrDisk = [ 'C:' , 'D:']
 // const file = 'C:'
