@@ -11,6 +11,7 @@ import { readFile } from './readFile.js';
 import { createFile } from './createFile.js';
 import { renameFile } from './renameFile.js';
 import { deleteFile } from './deleteFile.js';
+import { getInfoOs } from './system.js';
 
 let DIR = os.homedir();
 
@@ -56,6 +57,10 @@ const Enter = () => {
     if (data.startsWith('rm')) {
       const file = data.split(' ').slice(1).join('');
       deleteFile(DIR, file);
+    }
+    if (data.startsWith('os')) {
+      const file = data.split(' ').slice(1).join('');
+      getInfoOs(file);
     }
     if (data.startsWith('.exit')) {
       console.log(`Thank you for using File Manager, ${username}, goodbye!`);
