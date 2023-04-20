@@ -12,6 +12,8 @@ import { createFile } from './createFile.js';
 import { renameFile } from './renameFile.js';
 import { deleteFile } from './deleteFile.js';
 import { getInfoOs } from './system.js';
+import { getHash } from './getHash.js';
+import { compressFile, decompressFile } from './compressFile.js';
 
 let DIR = os.homedir();
 
@@ -62,28 +64,30 @@ const Enter = () => {
       const file = data.split(' ').slice(1).join('');
       getInfoOs(file);
     }
+    if (data.startsWith('hash')) {
+      const file = data.split(' ').slice(1).join('');
+      getHash(DIR, file);
+    }
     if (data.startsWith('.exit')) {
       console.log(`Thank you for using File Manager, ${username}, goodbye!`);
       rl.close();
     }
-    // else {
-    // console.log(`Вы ввели: ${data}`);
-    // Enter();
-    // }
+    if (data.startsWith('compress')) {
+      const filePath = data.split(' ').slice(1, 2).join('');
+      const fileDestination = data.split(' ').slice(2).join('');
+      compressFile(DIR, filePath, fileDestination);
+    }
+    if (data.startsWith('decompress')) {
+      const filePath = data.split(' ').slice(1, 2).join('');
+      const fileDestination = data.split(' ').slice(2).join('');
+      decompressFile(DIR, filePath, fileDestination);
+    }
+    else {
+    console.log(`Invalid input`);
+    }
   });
 };
 
 Enter();
 
-const rootPath = 'C:/Users/Julia/';
-const folderPath = 'C:/Users/Julia/Desktop';
-const dir = 'Nodejs';
-
-// const arrDisk = [ 'C:' , 'D:']
-// const file = 'C:'
-// console.log(file)
-// if (arrDisk.includes(file)){
-//   // process.chdir(file[2]);
-//   console.log(`You are currently in ${file}`);
-// }
 
