@@ -20,6 +20,6 @@ export const renameFile = (dir, filePath, file) => {
         })
     }
     DIR = path.join(dir, newPath)
-    return DIR; //TODO надо чтобы возвращалась директория в которой меняли файл
+    return DIR;
     
 };

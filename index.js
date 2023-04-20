@@ -1,6 +1,3 @@
-import fs from 'fs';
-import { fileURLToPath } from 'url';
-import path, { dirname, sep } from 'path';
 import process from 'process';
 import readline from 'readline';
 import os from 'os';
@@ -17,9 +14,6 @@ import { compressFile, decompressFile } from './compressFile.js';
 
 let DIR = os.homedir();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 const args = process.argv.slice(2);
 const username = args.join('').split('=')[1];
 
@@ -31,63 +25,35 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
+const commands = {
+  'up': () => DIR = upDir(DIR),
+  'cd': (file) => DIR = cdDir(DIR, file),
+  'ls': () => showInfoDir(DIR),
+  'cat': (file) => readFile(DIR, file),
+  'add': (file) => createFile(DIR, file),
+  'rn': (filePath, file) => DIR = renameFile(DIR, filePath, file),
+  'rm': (file) => deleteFile(DIR, file),
+  'os': (file) => getInfoOs(file),
+  'hash': (file) => getHash(DIR, file),
+  'compress': (filePath, fileDestination) => compressFile(DIR, filePath, fileDestination),
+  'decompress': (filePath, fileDestination) => decompressFile(DIR, filePath, fileDestination)
+};
+
 const Enter = () => {
   rl.on('line', (data) => {
-    if (data.startsWith('up')) {
-      DIR = upDir(DIR);
+    const [command, ...args] = data.split(' ');
+    const cb = commands[command];
+    if (cb) {
+      cb(...args);
     }
-    if (data.startsWith('cd')) {
-      const file = data.split(' ').slice(1).join('');
-      DIR = cdDir(DIR, file);
-    }
-    if (data.startsWith('ls')) {
-      showInfoDir(DIR);
-    }
-    if (data.startsWith('cat')) {
-      const file = data.split(' ').slice(1).join('');
-      readFile(DIR, file)
-    }
-    if (data.startsWith('add')) {
-      const file = data.split(' ').slice(1).join('');
-      createFile(DIR, file);
-    }
-    if (data.startsWith('rn')) {
-      const filePath = data.split(' ').slice(1, 2).join('');
-      const file = data.split(' ').slice(2).join('');
-      DIR = renameFile(DIR, filePath, file);
-    }
-    if (data.startsWith('rm')) {
-      const file = data.split(' ').slice(1).join('');
-      deleteFile(DIR, file);
-    }
-    if (data.startsWith('os')) {
-      const file = data.split(' ').slice(1).join('');
-      getInfoOs(file);
-    }
-    if (data.startsWith('hash')) {
-      const file = data.split(' ').slice(1).join('');
-      getHash(DIR, file);
-    }
-    if (data.startsWith('.exit')) {
-      console.log(`Thank you for using File Manager, ${username}, goodbye!`);
-      rl.close();
-    }
-    if (data.startsWith('compress')) {
-      const filePath = data.split(' ').slice(1, 2).join('');
-      const fileDestination = data.split(' ').slice(2).join('');
-      compressFile(DIR, filePath, fileDestination);
-    }
-    if (data.startsWith('decompress')) {
-      const filePath = data.split(' ').slice(1, 2).join('');
-      const fileDestination = data.split(' ').slice(2).join('');
-      decompressFile(DIR, filePath, fileDestination);
+    else if (command !== '.exit') {
+      console.log('Invalid input');
     }
     else {
-    console.log(`Invalid input`);
+      console.log(`Thank you for using File Manager, ${username}, goodbye!`);
+      rl.close();
     }
   });
 };
 
 Enter();
-
-

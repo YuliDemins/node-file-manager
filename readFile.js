@@ -23,7 +23,7 @@ const readStream = fs.createReadStream(filePath);
           }
       });
     } else {
-      console.log('Выберите файл');
+      console.log('Change file');
     }
   })
 }

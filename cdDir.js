@@ -3,13 +3,11 @@ import path, { sep } from 'path';
 import fs from 'fs';
 
 const makeArrDir = (filePath) => {
-  let arrDir = filePath.split(sep);
-  return arrDir;
+  return filePath.split(sep);
 };
 
 const makeStringDirUp = (arr) => {
-  let stringDir = arr.slice(0, -1).join(sep);
-  return stringDir;
+  return arr.slice(0, -1).join(sep);
 };
 
 const getDisk = () => {
@@ -32,15 +30,13 @@ let arr = makeArrDir(DIR);
 export const upDir = (dir) => {
   if (arr.join(sep) == path.parse(DIR).root) {
     DIR = path.parse(dir).root;
-    console.log(`You are currently in ${DIR}`);
-    return DIR;
   }
   else {
     DIR = makeStringDirUp(arr);
-    console.log(`You are currently in ${DIR}`);
     arr = arr.slice(0, -1);
-    return DIR;
   }
+  console.log(`You are currently in ${DIR}`);
+  return DIR;
 };
 
 export const downDir = (dir, file) => {
@@ -63,7 +59,8 @@ export const cdDir = (dir, file) => {
   } 
   if (arrDisk.includes(file)){ //TODO проверить
     process.chdir(file);
-    console.log(`You are currently in ${file}`);
+    DIR = path.resolve(file);
+    console.log(`You are currently in ${DIR}`);
   }
   else {
     DIR = downDir(DIR, file);
