@@ -10,12 +10,15 @@ export const showInfoDir = (dir) => {
   
     const arrDirectory = [];
     const arrFile = [];
+    const arrNoFile = [];
+    
   
     files.forEach((file) => {
       const filePath = path.join(dir, file);
+      
       fs.stat(filePath, (err, stats) => {
         if (err) {
-          console.log("FS operation is failed");
+          arrNoFile.push({name: file, type: 'unknown'});
           return;
         }
   
@@ -24,14 +27,19 @@ export const showInfoDir = (dir) => {
   
         if (type === 'directory') {
           arrDirectory.push(info);
-        } else {
+        }
+        else if (type === 'file') {
           arrFile.push(info);
         }
+        else {
+          arrNoFile.push(info);
+        }
   
-        if (arrDirectory.length + arrFile.length === files.length) {
+        if (arrDirectory.length + arrFile.length + arrNoFile.length === files.length) {
           const sortDir = arrDirectory.sort((a, b) => a.name - b.name);
           const sortFile = arrFile.sort((a, b) => a.name - b.name);
-          const sortResult = [...sortDir, ...sortFile];
+          const sortNoFile = arrNoFile.sort((a, b) => a.name - b.name);
+          const sortResult = [...sortDir, ...sortFile, ...sortNoFile];
           console.table(sortResult);
         }
       });

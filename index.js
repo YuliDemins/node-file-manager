@@ -58,6 +58,11 @@ const Enter = () => {
       rl.close();
     }
   });
+
+  rl.on('SIGINT', () => {
+    console.log(`Thank you for using File Manager, ${username}, goodbye!`);
+    rl.close();
+  });
 };
 
 Enter();
