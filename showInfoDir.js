@@ -1,5 +1,5 @@
 import fs from 'fs';
-import path from 'path';
+import { absolutePath } from './cdDir.js';
 
 export const showInfoDir = (dir) => {
   fs.readdir(dir, (err, files) => {
@@ -12,7 +12,7 @@ export const showInfoDir = (dir) => {
     const arrFile = [];
   
     files.forEach((file) => {
-      const filePath = path.join(dir, file);
+      const filePath = absolutePath(dir, file);
       fs.stat(filePath, (err, stats) => {
         if (err) {
           console.log("FS operation is failed");

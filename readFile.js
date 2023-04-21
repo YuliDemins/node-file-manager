@@ -1,12 +1,12 @@
 import fs from 'fs';
-import path from 'path';
+import { absolutePath } from './cdDir.js';
 
 export const readFile = (dir, file) => {
 let filePath = '';
 
-if (!fs.existsSync(path.join(dir, file))) console.log('FS operation is failed');
+if (!fs.existsSync(absolutePath(dir, file))) console.log('FS operation is failed');
 else {
-  filePath = path.join(dir, file);
+  filePath = absolutePath(dir, file);
  
 const readStream = fs.createReadStream(filePath);
 

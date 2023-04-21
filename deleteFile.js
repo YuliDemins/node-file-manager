@@ -1,8 +1,8 @@
 import fs from 'fs/promises';
-import path from 'path';
+import { absolutePath } from './cdDir.js';
 
 export const deleteFile = (dir, file) => {
-  const filePath = path.join(dir, file);
+  const filePath = absolutePath(dir, file);
     
   fs.rm(filePath)
     .then(() => console.log('Success'))

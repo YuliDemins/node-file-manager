@@ -2,11 +2,13 @@ import process from 'process';
 import readline from 'readline';
 import os from 'os';
 
-import { upDir, cdDir } from './cdDir.js';
+import { cdDir } from './cdDir.js';
 import { showInfoDir } from './showInfoDir.js';
 import { readFile } from './readFile.js';
 import { createFile } from './createFile.js';
 import { renameFile } from './renameFile.js';
+import { copyFile } from './copyFile.js';
+import { moveFile } from './moveFile.js';
 import { deleteFile } from './deleteFile.js';
 import { getInfoOs } from './system.js';
 import { getHash } from './getHash.js';
@@ -26,12 +28,14 @@ const rl = readline.createInterface({
 });
 
 const commands = {
-  'up': () => DIR = upDir(DIR),
+  'up': () => DIR = cdDir(DIR, '..'),
   'cd': (file) => DIR = cdDir(DIR, file),
   'ls': () => showInfoDir(DIR),
   'cat': (file) => readFile(DIR, file),
   'add': (file) => createFile(DIR, file),
   'rn': (filePath, file) => DIR = renameFile(DIR, filePath, file),
+  'cp': (filePath, file) => copyFile(DIR, filePath, file),
+  'mv': (filePath, file) => moveFile(DIR, filePath, file),
   'rm': (file) => deleteFile(DIR, file),
   'os': (file) => getInfoOs(file),
   'hash': (file) => getHash(DIR, file),
