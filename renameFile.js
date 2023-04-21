@@ -15,12 +15,14 @@ export const renameFile = (dir, filePath, file) => {
 
         if (!fs.existsSync(path.join(dir, newPath, oldFile))) {
             console.log('FS operation is failed');
+            return path.join(dir, newPath);
         }
         else {
             fs.rename(path.join(dir, newPath, oldFile), path.join(dir, newPath, file), (error) => {
                 if (error) console.log('FS operation failed');
                 else {
                     console.log('Success');
+                    return dir;
                 } 
             })
         }

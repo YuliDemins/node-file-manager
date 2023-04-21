@@ -16,16 +16,26 @@ import { compressFile, decompressFile } from './compressFile.js';
 
 let DIR = os.homedir();
 
-const args = process.argv.slice(2);
-const username = args.join('').split('=')[1];
+let username = '';
 
-console.log(`Welcome to the File Manager, ${username}!`)
-console.log(`You are currently in ${DIR}`)
+const init = () => {
+  const args = process.argv.slice(2);
+
+  if (!args || args !== '-- --username=') username = 'unknown';
+  else username = args.join('').split('=')[1];
+  
+  console.log(`Welcome to the File Manager, ${username}!`)
+  console.log(`You are currently in ${DIR}`)
+}
+
+
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
+
+init();
 
 const commands = {
   'up': () => DIR = cdDir(DIR, '..'),

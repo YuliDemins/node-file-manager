@@ -38,8 +38,8 @@ export const showInfoDir = (dir) => {
         if (arrDirectory.length + arrFile.length + arrNoFile.length === files.length) {
           const sortDir = arrDirectory.sort((a, b) => a.name - b.name);
           const sortFile = arrFile.sort((a, b) => a.name - b.name);
-          const sortNoFile = arrNoFile.sort((a, b) => a.name - b.name);
-          const sortResult = [...sortDir, ...sortFile, ...sortNoFile];
+          // const sortNoFile = arrNoFile.sort((a, b) => a.name - b.name);
+          const sortResult = [...sortDir, ...sortFile];
           console.table(sortResult);
         }
       });

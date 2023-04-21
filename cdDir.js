@@ -19,7 +19,7 @@ export const cdDir = (dir, file) => {
     }
     else {
       console.log('FS operation is failed')
-      
+      return dir;
     }
   }
 };
