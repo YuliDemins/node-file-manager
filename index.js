@@ -26,8 +26,6 @@ const init = () => {
   else username = args.join('').split('=')[1];
   
   console.log(`Welcome to the File Manager, ${username}!`);
-  sendMessage(DIR);
-  // console.log(`You are currently in ${DIR}`)
 }
 
 const rl = readline.createInterface({
@@ -47,14 +45,14 @@ const commands = {
   'cp': (filePath, file) => copyFile(DIR, filePath, file),
   'mv': (filePath, file) => moveFile(DIR, filePath, file),
   'rm': (file) => deleteFile(DIR, file),
-  'os': (file) => getInfoOs(file),
+  'os': (file) => getInfoOs(DIR, file),
   'hash': (file) => getHash(DIR, file),
   'compress': (filePath, fileDestination) => compressFile(DIR, filePath, fileDestination),
   'decompress': (filePath, fileDestination) => decompressFile(DIR, filePath, fileDestination)
 };
 
 const Enter = () => {
-  rl.on('line', (data) => {
+  rl.on('line', async (data) => {
     const [command, ...args] = data.split(' ');
     const cb = commands[command];
     if (cb) {

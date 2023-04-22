@@ -25,12 +25,12 @@ const osCall = {
   '--architecture': getArch
 };
 
-export const getInfoOs = (file) => {
+export const getInfoOs = (DIR, file) => {
   const cb = osCall[file];
   if (cb) {
     cb();
-    sendMessage(DIR);
   } else {
     console.log(`Invalid input`);
   }
+  sendMessage(DIR);
 };
