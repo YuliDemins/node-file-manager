@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import os from 'os';
-import { absolutePath } from './cdDir.js';
+import { absolutePath,sendMessage } from './service.js';
 
 let DIR = os.homedir();
 
@@ -20,12 +20,10 @@ export const renameFile = (dir, filePath, file) => {
         else {
             fs.rename(absolutePath(dir, newPath, oldFile), absolutePath(dir, newPath, file), (error) => {
                 if (error) console.log('FS operation failed');
-                else {
-                    console.log('Success');
-                } 
             })
         }
     DIR = absolutePath(dir, newPath);
+    sendMessage(DIR);
     return DIR;
     }   
 };

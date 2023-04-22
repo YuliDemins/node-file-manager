@@ -1,6 +1,6 @@
 import fs from 'fs';
 import crypto from 'crypto';
-import { absolutePath } from './cdDir.js';
+import { absolutePath, sendMessage } from './service.js';
 
 export const getHash = (dir, file) => {
   if (!file) {
@@ -14,6 +14,7 @@ export const getHash = (dir, file) => {
       else {
         const hash = crypto.createHash('sha256').update(data).digest('hex');
         console.log(hash);
+        sendMessage(dir);
       }
     })
   }

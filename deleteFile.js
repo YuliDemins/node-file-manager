@@ -1,5 +1,5 @@
 import fs from 'fs/promises';
-import { absolutePath } from './cdDir.js';
+import { absolutePath, sendMessage } from './service.js';
 
 export const deleteFile = (dir, file) => {
   if (!file) {
@@ -9,7 +9,7 @@ export const deleteFile = (dir, file) => {
     const filePath = absolutePath(dir, file);
     
     fs.rm(filePath)
-      .then(() => console.log('Success'))
+      .then(() => sendMessage(dir))
       .catch((err) => console.log('FS operation failed'));
   }
 

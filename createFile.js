@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { absolutePath } from './cdDir.js';
+import { absolutePath, sendMessage } from './service.js';
 
 export const createFile = (dir, file) => {
     if (!file) {
@@ -13,9 +13,9 @@ export const createFile = (dir, file) => {
             else {
                 fs.writeFile(absolutePath(dir, file), '', (error) => {
                     if (error) console.log('FS operation failed');
-                    else console.log('success')
                 })
             }
         });
     }
+    sendMessage(dir);
 };

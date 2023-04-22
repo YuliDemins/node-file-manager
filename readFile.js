@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { absolutePath } from './cdDir.js';
+import { absolutePath, sendMessage } from './service.js';
 
 export const readFile = (dir, file) => {
   if (!file) {
@@ -20,7 +20,10 @@ export const readFile = (dir, file) => {
           return;
         }
         if (stats.isFile()) {
-          readStream.on('data', (data) => process.stdout.write(data + '\n'));
+          readStream.on('data', (data) => {
+            process.stdout.write(data + '\n');
+            sendMessage(dir);
+          });
           readStream.on('error', (error) => {
               if (error) {
                  console.log('FS operation failed');
@@ -32,6 +35,5 @@ export const readFile = (dir, file) => {
       })
     }
   }
-
 }
   

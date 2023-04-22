@@ -1,4 +1,5 @@
 import os from 'os';
+import { sendMessage } from './service.js';
 
 const getEOL = () => console.log(JSON.stringify(os.EOL));
 
@@ -28,6 +29,7 @@ export const getInfoOs = (file) => {
   const cb = osCall[file];
   if (cb) {
     cb();
+    sendMessage(DIR);
   } else {
     console.log(`Invalid input`);
   }

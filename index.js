@@ -2,6 +2,7 @@ import process from 'process';
 import readline from 'readline';
 import os from 'os';
 
+import { sendMessage } from './service.js';
 import { cdDir } from './cdDir.js';
 import { showInfoDir } from './showInfoDir.js';
 import { readFile } from './readFile.js';
@@ -21,14 +22,13 @@ let username = '';
 const init = () => {
   const args = process.argv.slice(2);
 
-  if (!args || args !== '-- --username=') username = 'unknown';
+  if (!args || !args.join('').startsWith('--username=')) username = 'unknown';
   else username = args.join('').split('=')[1];
   
-  console.log(`Welcome to the File Manager, ${username}!`)
-  console.log(`You are currently in ${DIR}`)
+  console.log(`Welcome to the File Manager, ${username}!`);
+  sendMessage(DIR);
+  // console.log(`You are currently in ${DIR}`)
 }
-
-
 
 const rl = readline.createInterface({
   input: process.stdin,
