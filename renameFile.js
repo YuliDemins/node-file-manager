@@ -6,7 +6,7 @@ import { absolutePath,sendMessage } from './service.js';
 let DIR = os.homedir();
 
 export const renameFile = (dir, filePath, file) => {
-    if (!filePath && !file) {
+    if (!filePath || !file) {
         console.log('Invalid input');
         return dir;
     }
